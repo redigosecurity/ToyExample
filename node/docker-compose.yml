@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  node:
+    image: node:latest
+    working_dir: /app
+    ports:
+      - 5997:80
+    volumes:
+      - .:/app
+    command: ["sh", "startup.sh"]
+    restart: unless-stopped
+  restarter:
+    image: docker:cli
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    command: ["/bin/sh", "-c", "while true; do sleep 360; docker restart node-node-1; done"]
+    restart: unless-stopped

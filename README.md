@@ -1,3 +1,8 @@
+Disclaimer :
+
+Much of the code is actually written by ChatGPT. 
+
+
 Run `run.sh`.
 
 Might need to run `python3 -m pip install flask` first.

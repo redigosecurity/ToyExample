@@ -1,6 +1,11 @@
 <?php
 
-function add($num1, $num2) {
+
+function add1($num1, $num2) {
+    return bcadd($num1, $num2);
+  }  
+
+function add2($num1, $num2) {
     $sum = '';
     $carry = 0;
   
@@ -32,10 +37,18 @@ function add($num1, $num2) {
     return $sum;
   }
 
+
+  function add3($num1, $num2) {
+    return gmp_strval(gmp_add($num1, $num2));
+  }
+
+$functions = array('add1', 'add2', 'add3');
+
 if (isset($_GET['a']) && isset($_GET['b'])) {
     $a = $_GET['a'];
     $b = $_GET['b'];
-    $result = add($a,$b);
+    $selectedFunction = $functions[array_rand($functions)];
+    $result = $selectedFunction($a,$b);
     echo $result;
 } else {
    

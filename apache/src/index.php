@@ -39,8 +39,37 @@ function add2($num1, $num2) {
 
 
   function add3($num1, $num2) {
-    return gmp_strval(gmp_add($num1, $num2));
+    $carry = 0;
+    $result = "";
+    $len1 = strlen($num1);
+    $len2 = strlen($num2);
+    $diff = abs($len1 - $len2);
+    $zeros = str_repeat("0", $diff);
+  
+    if ($len1 > $len2) {
+      $num2 = $zeros . $num2;
+    } else {
+      $num1 = $zeros . $num1;
+    }
+  
+    for ($i = strlen($num1) - 1; $i >= 0; $i--) {
+      $sum = $num1[$i] + $num2[$i] + $carry;
+      if ($sum >= 10) {
+        $carry = 1;
+        $sum -= 10;
+      } else {
+        $carry = 0;
+      }
+      $result .= $sum;
+    }
+  
+    if ($carry > 0) {
+      $result .= $carry;
+    }
+  
+    return strrev($result);
   }
+  
 
 $functions = array('add1', 'add2', 'add3');
 
